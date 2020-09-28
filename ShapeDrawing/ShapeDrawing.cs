@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class ShapeDrawingForm : Form
 {
 	private List<Shape> shapes;
-	Drawer drawer;
 
 	public ShapeDrawingForm()
 	{
@@ -34,8 +33,6 @@ public class ShapeDrawingForm : Form
 		
 		// Listen to Paint event to draw shapes
 		this.Paint += new PaintEventHandler(this.OnPaint);
-
-		drawer = new CanvasDrawer();
 	}
 
     // What to do when the user closes the program
@@ -55,29 +52,38 @@ public class ShapeDrawingForm : Form
             shapes = Parser.ParseShapes(dialog.FileName);
             this.Refresh();
         }
-
-    }
+	}
 
     // What to do when the user wants to export a SVG file
 	private void exportHandler (object sender, EventArgs e)
 	{
-		//Draw to file
-		drawer = new SVGDrawer();
-		this.Refresh();
+		Stream stream;
+		SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-		//Draw on screen
-		drawer = new CanvasDrawer();
-		this.Refresh();
+		saveFileDialog.Filter = "SVG files|*.svg";
+		saveFileDialog.RestoreDirectory = true;
+
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			if ((stream = saveFileDialog.OpenFile()) != null)
+			{
+				// Insert code here that generates the string of SVG
+				//   commands to draw the shapes
+				using (StreamWriter writer = new StreamWriter(stream))
+				{
+					// Write strings to the file here using:
+					//   writer.WriteLine("Hello World!");
+					foreach (Shape shape in shapes)
+						shape.Draw(new SVGDrawer(writer));
+				}
+			}
+		}
 	}
 
-	int index = 0;
     private void OnPaint(object sender, PaintEventArgs e)
 	{
-		drawer.UpdateGraphics(e.Graphics);
 		// Draw all the shapes
-		Console.WriteLine(index);
-		index++;
 		foreach(Shape shape in shapes)
-			shape.Draw(drawer);
+			shape.Draw(new CanvasDrawer(e.Graphics));
 	}
 }

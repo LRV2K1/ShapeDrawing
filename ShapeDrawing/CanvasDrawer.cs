@@ -6,8 +6,10 @@ using System.Drawing;
 
 class CanvasDrawer : Drawer
 {
-    public CanvasDrawer() : base()
+    Graphics graphics;
+    public CanvasDrawer(Graphics graphics) : base() 
     {
+        this.graphics = graphics;
     }
 
     public override void DrawLine(Color color, int x1, int y1, int x2, int y2)
