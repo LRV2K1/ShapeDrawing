@@ -73,8 +73,18 @@ public class ShapeDrawingForm : Form
 				{
 					// Write strings to the file here using:
 					//   writer.WriteLine("Hello World!");
+					writer.WriteLine("<?xml version=\"1.0\" standalone=\"no\"?>");
+					writer.WriteLine("<!DOCTYPE svg PUBLIC \" -//W3C//DTD SVG 1.1//EN\"");
+					writer.WriteLine("    \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">");
+					writer.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
+					SVGDrawer drawer = new SVGDrawer(writer);
 					foreach (Shape shape in shapes)
-						shape.Draw(new SVGDrawer(writer));
+					{
+						drawer.StartObject();
+						shape.Draw(drawer);
+						drawer.StopObject();
+					}
+					writer.WriteLine("</svg>");
 				}
 			}
 		}
@@ -82,8 +92,21 @@ public class ShapeDrawingForm : Form
 
     private void OnPaint(object sender, PaintEventArgs e)
 	{
+		Drawer drawer = new CanvasDrawer(e.Graphics);
 		// Draw all the shapes
 		foreach(Shape shape in shapes)
-			shape.Draw(new CanvasDrawer(e.Graphics));
+			shape.Draw(drawer);
+	}
+
+	private void InitializeComponent()
+	{
+            this.SuspendLayout();
+            // 
+            // ShapeDrawingForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "ShapeDrawingForm";
+            this.ResumeLayout(false);
+
 	}
 }

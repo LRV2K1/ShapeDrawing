@@ -18,10 +18,10 @@ class CanvasDrawer : Drawer
         graphics.DrawLine(pen, x1, y1, x2, y2);
     }
 
-    public override void DrawCircle(Color color, int x, int y, int radius)
+    public override void DrawCircle(Color color, int x, int y, int diameter)
     {
         Pen pen = new Pen(color);
-        graphics.DrawEllipse(pen, x, y, radius, radius);
+        graphics.DrawEllipse(pen, x, y, diameter, diameter);
     }
 }
 
