@@ -10,6 +10,7 @@ public class ShapeDrawingForm : Form
 
 	public ShapeDrawingForm()
 	{
+		// Setup Menu
         MenuStrip menuStrip;
         menuStrip = new MenuStrip();
 
@@ -60,7 +61,7 @@ public class ShapeDrawingForm : Form
 		Stream stream;
 		SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-		saveFileDialog.Filter = "SVG files|(*.svg)";
+		saveFileDialog.Filter = "SVG files|*.svg";
 		saveFileDialog.RestoreDirectory = true;
 		
 		if(saveFileDialog.ShowDialog() == DialogResult.OK)
