@@ -3,6 +3,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Linq;
 
 public class ShapeDrawingForm : Form
 {
@@ -69,14 +71,13 @@ public class ShapeDrawingForm : Form
 			{
 				// Insert code here that generates the string of SVG
 				//   commands to draw the shapes
-				using (StreamWriter writer = new StreamWriter(stream))
+				using (XmlWriter writer = XmlWriter.Create(stream))
 				{
-					// Write strings to the file here using:
-					//   writer.WriteLine("Hello World!");
-					writer.WriteLine("<?xml version=\"1.0\" standalone=\"no\"?>");
-					writer.WriteLine("<!DOCTYPE svg PUBLIC \" -//W3C//DTD SVG 1.1//EN\"");
-					writer.WriteLine("    \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">");
-					writer.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">");
+					//write svg file
+					writer.WriteStartDocument(false);
+					writer.WriteStartElement("","svg", "http://www.w3.org/2000/svg");
+					writer.WriteAttributeString("version", "1.1");
+		
 					SVGDrawer drawer = new SVGDrawer(writer);
 					foreach (Shape shape in shapes)
 					{
@@ -84,7 +85,8 @@ public class ShapeDrawingForm : Form
 						shape.Draw(drawer);
 						drawer.StopObject();
 					}
-					writer.WriteLine("</svg>");
+
+					writer.WriteEndDocument();
 				}
 			}
 		}

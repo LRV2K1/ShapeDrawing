@@ -3,34 +3,43 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
-
+using System.Xml;
 
 class SVGDrawer : Drawer
 {
-	StreamWriter writer;
-	public SVGDrawer(StreamWriter writer) : base() 
+	XmlWriter writer;
+
+	public SVGDrawer(XmlWriter writer) : base() 
 	{
 		this.writer = writer;
 	}
 
 	public void StartObject()
 	{
-
 	}
 
 	public void StopObject()
 	{
-
 	}
 
 	public override void DrawLine(Color color, int x1, int y1, int x2, int y2)
 	{
-		writer.WriteLine("    <polyline points=\"" + x1 + ", " + y1 + " " + x2 + ", " + y2 + "\" style=\"fill:none;stroke:black;stroke-width:1\" />");
+		writer.WriteStartElement("polyline");
+		writer.WriteAttributeString("points", x1 + "," + y1 + " " + x2 + "," + y2);
+		writer.WriteAttributeString("style", "fill:none;stroke:black;stroke-width:1");
+		writer.WriteEndElement();
 	}
 
-	public override void DrawCircle(Color color, int x, int y, int radius)
+	public override void DrawCircle(Color color, int x, int y, int diameter)
 	{
-		writer.WriteLine("    <circle cx=\"" + x + "\" cy=\"" + y + "\" r=\"" + (radius/2) + "\" stroke-width=\"1\" fill=\"none\" stroke=\"black\" />");
+		writer.WriteStartElement("circle");
+		writer.WriteAttributeString("cx", (x + diameter / 2).ToString());
+		writer.WriteAttributeString("cy", (y + diameter / 2).ToString());
+		writer.WriteAttributeString("r", (diameter / 2).ToString());
+		writer.WriteAttributeString("stroke-width", "1");
+		writer.WriteAttributeString("fill", "none");
+		writer.WriteAttributeString("stroke", "black");
+		writer.WriteEndElement();
 	}
 }
 
