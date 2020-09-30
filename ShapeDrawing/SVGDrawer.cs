@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Collections.Generic;
 using System.Xml;
 using System.Linq;
