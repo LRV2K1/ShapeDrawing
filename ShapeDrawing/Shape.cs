@@ -7,6 +7,6 @@ public abstract class Shape
 	{
 	}
 
-    public abstract void Draw(Drawer Canvas);
+    public abstract void Draw(Drawer drawer);
 	
 }

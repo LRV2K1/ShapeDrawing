@@ -24,4 +24,3 @@ class CanvasDrawer : Drawer
         graphics.DrawEllipse(pen, x, y, diameter, diameter);
     }
 }
-

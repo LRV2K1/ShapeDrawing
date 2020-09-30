@@ -14,10 +14,10 @@ class Circle : Shape
 		this.size = size;
     }
 
-    public override void Draw(Drawer Canvas)
+    public override void Draw(Drawer drawer)
     {
 		Pen pen = new Pen(Color.Black);
-        Canvas.DrawCircle(Color.Black, this.x, this.y, this.size);
+        drawer.DrawCircle(Color.Black, this.x, this.y, this.size);
     }
 
 }

@@ -16,13 +16,12 @@ class Rectangle : Shape
 		this.height = height;
     }
     
-	public override void Draw(Drawer Canvas)
+	public override void Draw(Drawer drawer)
     {
 		Pen pen = new Pen(Color.Black);
-		Canvas.DrawLine(Color.Black,x,y,x + width,y);
-		Canvas.DrawLine(Color.Black,x+width,y,x+width,y+height);
-		Canvas.DrawLine(Color.Black,x+width,y+height,x,y+height);
-		Canvas.DrawLine(Color.Black,x,y+height,x,y);
+		drawer.DrawLine(Color.Black,x,y,x + width,y);
+		drawer.DrawLine(Color.Black,x+width,y,x+width,y+height);
+		drawer.DrawLine(Color.Black,x+width,y+height,x,y+height);
+		drawer.DrawLine(Color.Black,x,y+height,x,y);
     }
 }
-
