@@ -16,7 +16,8 @@ class Circle : Shape
 
     public override void Draw(Drawer drawer)
     {
-        drawer.DrawCircle(Color.Black, this.x, this.y, this.size);
+        Color color = Color.Black;
+        drawer.DrawCircle(color, this.x, this.y, this.size);
     }
 
 }

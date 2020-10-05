@@ -19,6 +19,8 @@ public class Star : Shape
 
 	public override void Draw (Drawer drawer)
 	{
+		Color color = Color.Black;
+
 		int numPoints = 5;
 		Point[] pts = new Point[numPoints];
 		double rx = width / 2;
@@ -39,7 +41,7 @@ public class Star : Shape
 
 		for (i = 0; i < numPoints; i++) 
 		{
-			drawer.DrawLine(Color.Black,pts[i].X,
+			drawer.DrawLine(color, pts[i].X,
                                 pts[i].Y,
                                 pts[(i+1) % numPoints].X,
                                 pts[(i+1) % numPoints].Y);

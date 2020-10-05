@@ -18,9 +18,10 @@ class Rectangle : Shape
     
 	public override void Draw(Drawer drawer)
     {
-		drawer.DrawLine(Color.Black,x,y,x + width,y);
-		drawer.DrawLine(Color.Black,x+width,y,x+width,y+height);
-		drawer.DrawLine(Color.Black,x+width,y+height,x,y+height);
-		drawer.DrawLine(Color.Black,x,y+height,x,y);
+		Color color = Color.Black;
+		drawer.DrawLine(color, x,y,x + width,y);
+		drawer.DrawLine(color, x+width,y,x+width,y+height);
+		drawer.DrawLine(color, x+width,y+height,x,y+height);
+		drawer.DrawLine(color, x,y+height,x,y);
     }
 }
