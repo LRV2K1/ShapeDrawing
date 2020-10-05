@@ -61,7 +61,7 @@ class SVGDrawer : Drawer
 				point = next;
 			}
 			else
-				point = Point.Empty;
+				return line;
 		}
 
 		return line;
