@@ -18,7 +18,6 @@ class Rectangle : Shape
     
 	public override void Draw(Drawer drawer)
     {
-		Pen pen = new Pen(Color.Black);
 		drawer.DrawLine(Color.Black,x,y,x + width,y);
 		drawer.DrawLine(Color.Black,x+width,y,x+width,y+height);
 		drawer.DrawLine(Color.Black,x+width,y+height,x,y+height);
