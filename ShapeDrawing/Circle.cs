@@ -19,5 +19,4 @@ class Circle : Shape
         Color color = Color.Black;
         drawer.DrawCircle(color, this.x, this.y, this.size);
     }
-
 }

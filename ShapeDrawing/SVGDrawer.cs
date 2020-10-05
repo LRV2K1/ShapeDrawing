@@ -9,20 +9,28 @@ class SVGDrawer : Drawer
 
 	Dictionary<Point, List<Point>> lines;
 	Point start;
+	bool started;
 
 	public SVGDrawer(XmlWriter writer) : base() 
 	{
+		started = false;
 		this.writer = writer;
 	}
 
 	public void StartObject()
 	{
+		started = true;
 		lines = new Dictionary<Point, List<Point>>();
 		start = Point.Empty;
 	}
 
 	public void StopObject()
 	{
+		if (!started)
+			return;
+
+		started = false;
+
 		Point point = start;
 
 		//write lines
@@ -86,6 +94,12 @@ class SVGDrawer : Drawer
 
 	public override void DrawLine(Color color, int x1, int y1, int x2, int y2)
 	{
+		if (!started)
+		{
+			WriteSVG(x1 + "," + y1 + " " + x2 + "," + y2);
+			return;
+		}
+
 		Point p1 = new Point(x1, y1);
 		Point p2 = new Point(x2, y2);
 
@@ -95,13 +109,6 @@ class SVGDrawer : Drawer
 		//add lines
 		AddLine(p1, p2);
 		AddLine(p2, p1);
-
-		/*
-		writer.WriteStartElement("polyline");
-		writer.WriteAttributeString("points", x1 + "," + y1 + " " + x2 + "," + y2);
-		writer.WriteAttributeString("style", "fill:none;stroke:black;stroke-width:1");
-		writer.WriteEndElement();
-		*/
 	}
 
 	public override void DrawCircle(Color color, int x, int y, int diameter)
